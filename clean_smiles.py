@@ -9,6 +9,10 @@ class SmilesCleaner:
         self.mols = []
 
     def getCanonicaSmiles(self):
-        self.mols = [Chem.MolFromSmiles(smi) for smi in self.smiles]
-        self.smiles = [Chem.MolToSmiles(mol) for mol in self.mols]
+        try:
+            self.mols = [Chem.MolFromSmiles(smi) for smi in self.smiles]
+            self.smiles = [Chem.MolToSmiles(mol) for mol in self.mols]
+        except:
+            print("\n\n********** Check your SMILES or pdb file **********\n\n")
+            exit()
         return self.smiles
