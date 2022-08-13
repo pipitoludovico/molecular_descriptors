@@ -1,7 +1,5 @@
 from rdkit import Chem
 
-from dataParser import *
-
 
 class SmilesCleaner:
     def __init__(self, smiles):
@@ -12,7 +10,8 @@ class SmilesCleaner:
         try:
             self.mols = [Chem.MolFromSmiles(smi) for smi in self.smiles]
             self.smiles = [Chem.MolToSmiles(mol) for mol in self.mols]
-        except:
+        except Exception as e:
+            print(e)
             print("\n\n********** Check your SMILES or pdb file **********\n\n")
             exit()
         return self.smiles

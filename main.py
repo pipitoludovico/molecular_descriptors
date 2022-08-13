@@ -1,5 +1,4 @@
-import sys
-import xlwt
+from dataParser import *
 from clean_smiles import *
 from filter import *
 from fetch_descriptors import *

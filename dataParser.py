@@ -15,8 +15,7 @@ class Parser:
             try:
                 self.obabel_result = subprocess.check_output("obabel -i pdb " + sys.argv[1] + " -o smi", shell=True,
                                                              text=True)
-                self.pdbRep = {}
-                self.pdbRep['SMILES'] = str(self.obabel_result).split()[0]
+                self.pdbRep = {'SMILES': str(self.obabel_result).split()[0]}
                 self.draw = Chem.MolFromSmiles(str(self.obabel_result).split()[0])
                 self.data = pd.DataFrame([self.pdbRep])
                 Draw.MolToFile(self.draw, f"{str(sys.argv[1]).replace('.pdb', '.png')}")
@@ -24,8 +23,7 @@ class Parser:
                 if hasattr(e, 'Openbabel has failed: trying with RDKit now. Please check bonds and geometry!'):
                     self.mol = Chem.MolFromPDBFile(data)
                     self.smileFromMol = Chem.MolToSmiles(self.mol)
-                    self.pdbRep = {}
-                    self.pdbRep['SMILES'] = self.smileFromMol
+                    self.pdbRep = {'SMILES': self.smileFromMol}
                     self.data = pd.DataFrame([self.pdbRep])
                     Draw.MolToFile(self.mol, f"{str(sys.argv[1]).replace('.pdb', '.png')}")
                 else:
